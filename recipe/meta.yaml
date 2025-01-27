@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/tiara-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/tiara-{{ version }}.tar.gz
   sha256: 77585ae73a019dc73d7f0397082685a662c07ab15bdba7ee18c1cda41738ad76
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7,<=3.9
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.7,<=3.9
+    - python >={{ python_min }},<3.10a0
     - biopython >=1.78,<2.dev0
     - joblib >=0.17.0,<0.18.dev0
     - numba >=0.52.0rc3,<0.53.0rc1.post1
@@ -36,6 +36,7 @@ test:
     - tiara --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://ibe-uw.github.io/tiara/
